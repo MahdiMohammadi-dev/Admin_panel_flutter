@@ -2,7 +2,10 @@
 import 'package:admin_panel_web/constant/style.dart';
 import 'package:admin_panel_web/controllers/menu_controller.dart' as menu_controller;
 import 'package:admin_panel_web/controllers/navigation_controller.dart';
+import 'package:admin_panel_web/layout.dart';
 import 'package:admin_panel_web/pages/authentication/authentication.dart';
+import 'package:admin_panel_web/pages/error_page/error_page.dart';
+import 'package:admin_panel_web/routing/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -11,7 +14,6 @@ void main() {
   Get.put(menu_controller.MenuController());
   Get.put(NavigationController());
   runApp(const MyApp());
-  // runApp( BarChart());
 }
 
 class MyApp extends StatelessWidget {
@@ -20,6 +22,16 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      initialRoute: rootRoute,
+      unknownRoute: GetPage(name: '/not-found', page: () => const ErrorPage(), transition: Transition.fadeIn),
+      getPages: [
+        GetPage(
+            name: rootRoute,
+            page: () {
+              return SiteLayout();
+            }),
+        GetPage(name: authenticationPageRoute, page: () => const AuthenticationPage()),
+      ],
       debugShowCheckedModeBanner: false,
       title: "Dashboard",
       theme: ThemeData(
@@ -32,7 +44,7 @@ class MyApp extends StatelessWidget {
         }),
         primaryColor: Colors.blue,
       ),
-      home:  const AuthenticationPage(),
+
     );
   }
 }

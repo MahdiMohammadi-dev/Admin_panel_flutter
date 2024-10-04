@@ -15,57 +15,69 @@ class SideMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     double width = MediaQuery.sizeOf(context).width;
     return Container(
-      color: light,
-      child: ListView(
-        children: [
-          if (ResponsiveWidget.isSmallScreen(context))
+        color: light,
+        child: ListView(
+          children: [
+            if (ResponsiveWidget.isSmallScreen(context))
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const SizedBox(
+                    height: 40,
+                  ),
+                  Row(
+                    children: [
+                      SizedBox(
+                        width: width / 48,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(right: 12),
+                        child: Image.asset('assets/icons/logo.png'),
+                      ),
+                      Flexible(
+                        child: CustomText(
+                            text: 'Dash',
+                            size: 20,
+                            color: active,
+                            weight: FontWeight.bold),
+                      ),
+                      SizedBox(
+                        width: width / 48,
+                      )
+                    ],
+                  ),
+                ],
+              ),
+            const SizedBox(
+              height: 40,
+            ),
+            Divider(
+              color: lightGrey.withOpacity(.1),
+            ),
             Column(
               mainAxisSize: MainAxisSize.min,
-              children: [
-                const SizedBox(
-                  height: 40,
-                ),
-                Row(
-                  children: [
-                    SizedBox(
-                      width: width / 48,
+              children: sideMenuItemRoutes
+                  .map(
+                    (item) => SideMenuItem(
+                      itemName: item.name,
+                      onTap: () {
+                        if (item.route == authenticationPageRoute) {
+                          menuController
+                              .changeItemActiveTo(overviewPageRoute);
+                          Get.offAllNamed(authenticationPageRoute);
+                        }
+                        if (!menuController.isActive(item.name)) {
+                          menuController.changeItemActiveTo(item.name);
+                          if (ResponsiveWidget.isSmallScreen(context))
+                            Get.back();
+                          navigationController.navigateTo(item.route);
+                        }
+                      },
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(right: 12),
-                      child: Image.asset('assets/icons/logo.png'),
-                    ),
-                    Flexible(
-                      child: CustomText(
-                          text: 'Dash',
-                          size: 20,
-                          color: active,
-                          weight: FontWeight.bold),
-                    ),
-                    SizedBox(width: width/48,)
-                  ],
-                ),
-        ],
-      ),
-          const SizedBox(height: 40,),
-          Divider(color: lightGrey.withOpacity(.1),),
-          Column(
-            mainAxisSize: MainAxisSize.min,
-            children: sideMenuItem.map((itemName)=>SideMenuItem(itemName: itemName==AuthenticationPageRoute?"Log Out":itemName,
-              onTap: () {
-                if(itemName==AuthenticationPageRoute){
-                    Get.offAll(()=>AuthenticationPage());
-                }
-                if(!menuController.isActive(itemName)){
-                  menuController.changeItemActiveTo(itemName);
-                  if(ResponsiveWidget.isSmallScreen(context))
-                    Get.back();
-                  navigationController.navigateTo(itemName);
-                }
-              },),).toList(),
-          )
-       
-        ],
-      )
-    );
+                  )
+                  .toList(),
+            )
+          ],
+        ));
   }
 }

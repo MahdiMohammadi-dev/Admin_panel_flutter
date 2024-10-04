@@ -1,4 +1,3 @@
-import 'package:admin_panel_web/pages/authentication/authentication.dart';
 import 'package:admin_panel_web/pages/clients/clients.dart';
 import 'package:admin_panel_web/pages/drivers/drivers.dart';
 import 'package:admin_panel_web/pages/overview/overview.dart';
@@ -8,11 +7,11 @@ import 'package:flutter/material.dart';
 
 Route<dynamic> generateRoute(RouteSettings settings) {
   switch(settings.name){
-    case OverViewPageRoute:
+    case overviewPageRoute:
       return _getPageRoute(const OverviewPage());
-    case DriversPageRoute:
+    case driversPageRoute:
       return _getPageRoute(const DriversPage());
-    case ClientsPageRoute:
+    case clientsPageRoute:
      return _getPageRoute(const ClientsPage());
     default:
       return _getPageRoute(const OverviewPage());

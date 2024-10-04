@@ -1,5 +1,6 @@
 import 'package:admin_panel_web/constant/style.dart';
 import 'package:admin_panel_web/layout.dart';
+import 'package:admin_panel_web/routing/routes.dart';
 import 'package:admin_panel_web/widgets/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -7,6 +8,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 class AuthenticationPage extends StatelessWidget {
   const AuthenticationPage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,11 +41,13 @@ class AuthenticationPage extends StatelessWidget {
               const SizedBox(
                 height: 10,
               ),
-               Row(
+              Row(
                 children: [
                   CustomText(
                     text: "Welcome back to the admin panel.",
-                    color: lightGrey, size: 16, weight: FontWeight.normal,
+                    color: lightGrey,
+                    size: 16,
+                    weight: FontWeight.normal,
                   ),
                 ],
               ),
@@ -76,14 +80,20 @@ class AuthenticationPage extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      Checkbox(value: true, onChanged: (value){}),
-                       CustomText(text: "Remeber Me", size: 16, color: Colors.black, weight: FontWeight.normal,),
+                      Checkbox(value: true, onChanged: (value) {}),
+                      CustomText(
+                        text: "Remeber Me",
+                        size: 16,
+                        color: Colors.black,
+                        weight: FontWeight.normal,
+                      ),
                     ],
                   ),
-
                   CustomText(
-                      text: "Forgot password?",
-                      color: active, size: 16, weight: FontWeight.normal,
+                    text: "Forgot password?",
+                    color: active,
+                    size: 16,
+                    weight: FontWeight.normal,
                   )
                 ],
               ),
@@ -91,33 +101,34 @@ class AuthenticationPage extends StatelessWidget {
                 height: 15,
               ),
               InkWell(
-                onTap: (){
-                 Get.offAll(()=>SiteLayout());
+                onTap: () {
+                  Get.offAllNamed(rootRoute);
+
                 },
                 child: Container(
-                  decoration: BoxDecoration(color: active,
-                      borderRadius: BorderRadius.circular(20)),
+                  decoration: BoxDecoration(
+                      color: active, borderRadius: BorderRadius.circular(20)),
                   alignment: Alignment.center,
                   width: double.maxFinite,
                   padding: const EdgeInsets.symmetric(vertical: 16),
                   child: const CustomText(
                     text: "Login",
-                    color: Colors.white, size: 16, weight: FontWeight.normal,
+                    color: Colors.white,
+                    size: 16,
+                    weight: FontWeight.normal,
                   ),
                 ),
               ),
-
               const SizedBox(
                 height: 15,
               ),
-
-              RichText(text:  TextSpan(
-                  children: [
-                    TextSpan(text: "Do not have admin credentials? "),
-                    TextSpan(text: "Request Credentials! ", style: TextStyle(color: active))
-                  ]
-              ))
-
+              RichText(
+                  text: TextSpan(children: [
+                TextSpan(text: "Do not have admin credentials? "),
+                TextSpan(
+                    text: "Request Credentials! ",
+                    style: TextStyle(color: active))
+              ]))
             ],
           ),
         ),
